@@ -10,7 +10,7 @@ import SwiftUI
 @main
 struct klipitApp: App {
     var body: some Scene {
-        WindowGroup {
+        MenuBarExtra("",systemImage:"paperclip.circle") {
             ContentView()
         }
     }
