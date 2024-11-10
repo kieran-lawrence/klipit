@@ -13,5 +13,6 @@ struct klipitApp: App {
         MenuBarExtra("",systemImage:"paperclip.circle") {
             ContentView()
         }
+        .menuBarExtraStyle(.window)
     }
 }

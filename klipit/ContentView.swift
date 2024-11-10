@@ -8,17 +8,26 @@
 import SwiftUI
 
 struct ContentView: View {
+    @StateObject private var clipboardMonitor = ClipboardMonitor()
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
-        }
-        .padding()
-    }
-}
+            List(clipboardMonitor.clipboardHistory, id: \.self) { item in
+                Button(action: {
+                    let pasteboard = NSPasteboard.general
+                    pasteboard.clearContents()
+                    pasteboard.setString(item, forType: .string)
+                }, label: {
+                    Text(item.trimmingCharacters(in: .whitespacesAndNewlines))
+                        .lineLimit(1)
+                })
+                .buttonStyle(.borderless)
+                .foregroundColor(.accentColor)
 
-#Preview {
-    ContentView()
+                
+            }
+        }
+        .onAppear {
+            clipboardMonitor.checkClipboard()
+        }
+    }
 }
